@@ -7,7 +7,7 @@ def get_product(product_id):
     Product table and children, This function returns the corresponding child record from the parent id.
     Input: product.id of from Product table
     Output: List: [table that id was found in,
-     Record from the correct child table] """
+    Record from the correct child table] """
     test = Product.objects.get(pk=product_id)
     models = [["yeast", Yeast], ["malt", Malt], ["hop", Hop],
               ["equipment", Hop], ["book", Book]]

@@ -6,6 +6,12 @@ from .utils import get_product
 
 def all_products(request):
     products = Product.objects.all()
+    if request.GET:
+        models = [["yeast", Yeast], ["malt", Malt], ["hop", Hop],
+                  ["equipment", Eqipment], ["book", Book]]
+        for model in models:
+            if request.GET['cat'] == model[0]:
+                products = model[1].objects.all()
 
     context = {
         'products': products,
