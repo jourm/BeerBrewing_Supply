@@ -1,0 +1,1 @@
+web: gunicorn BeerBrewing_supply.wsgi:application
