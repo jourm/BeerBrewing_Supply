@@ -18,10 +18,10 @@ class TestCartViews(TestCase):
             )
             
 
-    def test_uppdate_cart(self):
+"""     def test_uppdate_cart(self):
 
 
     def test_remove_from_cart(self):
 
-
+ """
 
