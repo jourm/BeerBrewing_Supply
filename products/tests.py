@@ -21,3 +21,5 @@ class TestProductViews(TestCase):
         response = self.client.get('/products/1')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'products/product_details.html')
+
+        
