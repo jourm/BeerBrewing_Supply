@@ -22,3 +22,16 @@ def add_to_cart(request, item_id):
     request.session['cart'] = cart
     print(request.session['cart'])
     return redirect(redirect_url)
+
+
+def uppdate_cart(request, item_id):
+    """ Edit quantity of a product to the shopping cart """
+
+    quantity = int(request.POST.get('amount'))
+    redirect_url = request.POST.get('redirect_url')
+    cart = request.session.get('cart', {})
+    cart[item_id] = quantity
+
+    request.session['cart'] = cart
+    print(request.session['cart'])
+    return redirect(redirect_url)
