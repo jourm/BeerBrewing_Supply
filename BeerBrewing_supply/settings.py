@@ -26,9 +26,9 @@ SECRET_KEY = 'gsy03lwj(oj8wgt1*6)tkhg5-3xag!kjxfhk=gc4s7&#ewo6zh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-""" ALLOWED_HOSTS = ['beerbrewing-supply.herokuapp.com'] """
+ALLOWED_HOSTS = ['beerbrewing-supply.herokuapp.com']
 
-ALLOWED_HOSTS = []
+""" ALLOWED_HOSTS = [] """
 
 
 
