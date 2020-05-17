@@ -9,6 +9,7 @@
     <!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     -->
     <link rel="stylesheet" href="{% static 'css/boot.css' %}">
+    <script src="https://kit.fontawesome.com/074d59540c.js" crossorigin="anonymous"></script>
 	<title>BeerBrewing Supply</title>
 </head>
 
@@ -35,7 +36,20 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'products' %}?cat=book">Books</a>
       </li>
-
+      <li class="list-inline-item">
+         <a class="font-weight-bold nav-link" href="{% url 'view_cart' %}">
+            <div class="text-center">
+                <div><i class="fas fa-shopping-cart"></i></div>
+                    <p class="my-0">
+                        {% if total %}
+                            ${{ total|floatformat:2 }}
+                        {% else %}
+                            0.00 €
+                        {% endif %}
+                    </p>
+                </div>
+            </a>
+        </li>
     </ul>
   </div>
 </nav>
