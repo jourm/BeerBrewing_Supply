@@ -35,3 +35,11 @@ def uppdate_cart(request, item_id):
     request.session['cart'] = cart
     print(request.session['cart'])
     return redirect(redirect_url)
+
+
+def delete_from_cart(request, item_id):
+    cart = request.session.get('cart', {})
+    cart.pop(item_id)
+    request.session['cart'] = cart
+
+    return render(request, 'cart/cart.html')

@@ -34,15 +34,17 @@
                                         <p class="my-0">{{ item.product.price }}€</p>
                                     </td>
                                     <td class="py-3 w-25">
-                                    <p class="my-0">{{ item.quantity }}</p>
-                                    <form class="form" method="POST" action="{% url 'uppdate_cart' product.id %}">
+                                   
+                                    <form class="form" method="POST" action="{% url 'uppdate_cart' item.product.id %}">
                                     {% csrf_token %}
+                                        <p class="my-0">{{ item.quantity }}</p>
                                         <label for="amount">Amount:</label>
-                                        <input type="number" value="item.quantity" min="1" max="99" name="amount" data-item_id="{{ product.id }}" id="id_amount_{{ product.id }}" >
-                                        <input type="submit" value="Uppdate quantity" class="btn btn-primary">
-                                        <button class="btn btn-warning">Delete Item</button>
+                                        <input type="number" value="{{ item.quantity }}" min="1" max="99" name="amount" data-item_id="{{ product.id }}" id="id_amount_{{ product.id }}" >
+                                        <input type="submit" value="Uppdate" class="btn btn-primary">
+                                        
                                         <input type="hidden" name="redirect_url" value="{{ request.path }}"> 
                                         </form>
+                                        <a href="{% url 'delete_from_cart' item.product.id %}"><button class="btn btn-warning">Delete Item</button></a>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">{{ item.subtotal }} €</p>
