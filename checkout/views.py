@@ -4,6 +4,8 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 from products import utils
+from orders.models import Order
+
 # Create your views here.
 
 klarna_un = settings.KLARNA_UN
@@ -14,19 +16,22 @@ klarna_pw = settings.KLARNA_PW
 
 def checkout(request):
 
-
-
-
     auth = HTTPBasicAuth(klarna_un, klarna_pw)
     headers = {'content-type': 'application/json'}
     cart = request.session.get('cart')
     total = 0
     orderlines = []
+    order_id = 0
+    try:
+        order_id = request.session['order_id']
+    except:
+        pass
+
     for item in cart:
         product = utils.get_product(item)
         orderlines.append({
             'name': product[1].name,
-            'product_id': product[1].id,
+            'reference': product[1].id,
             'unit_price':  int(product[1].price * 100),
             'quantity': int(cart[item]),
             'tax_rate': int(00),
@@ -35,10 +40,10 @@ def checkout(request):
             })
         total += product[1].price * cart[item] * 100
     integer_total = int(total)
-    if request.session['order_id']:
+    if order_id:
         response = requests.get(
             settings.KLARNA_BASE_URL + '/checkout/v3/orders/' +
-            request.session['order_id'],
+            order_id,
             auth=auth,
             headers=headers,
         )
@@ -59,10 +64,10 @@ def checkout(request):
                 "order_tax_amount": 0,
                 "order_lines": orderlines,
                 "merchant_urls": {
-                    "terms": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/terms",
+                    "terms": reverse('terms'),
                     "checkout": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/completed",
                     "confirmation": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/completed",
-                    "push": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/orders/register_order"
+                    "push": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/orders/register_order?sid={checkout.order.id}"
                     },
                 "shipping_options": [
                 {
@@ -88,12 +93,14 @@ def checkout(request):
             }
             data = json.dumps(body)
             response = requests.post(
-                            settings.KLARNA_BASE_URL + '/checkout/v3/orders',
+                            settings.KLARNA_BASE_URL + '/checkout/v3/orders/' +
+                            order_id,
                             auth=auth,
                             headers=headers,
                             data=data)
 
             klarna_order = response.json()
+            print(klarna_order)
             context = {
                 'klarna_order': klarna_order
             }
@@ -128,7 +135,7 @@ def checkout(request):
                 "terms": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/terms",
                 "checkout": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/completed",
                 "confirmation": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/completed",
-                "push": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/orders/register_order"
+                "push": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/orders/register_order?sid={checkout.order.id}"
                 },
             "shipping_options": [
             {
@@ -154,8 +161,7 @@ def checkout(request):
         }
         data = json.dumps(body)
         response = requests.post(
-                        settings.KLARNA_BASE_URL + '/checkout/v3/orders/' +
-                        request.session['order_id'],
+                        settings.KLARNA_BASE_URL + '/checkout/v3/orders',
                         auth=auth,
                         headers=headers,
                         data=data)
@@ -177,5 +183,41 @@ def terms(request):
 
 
 def completed(request):
+    """ view that is directed to from klarna once checkout is completed,
+    order_id is thenretrived from session and the order information is
+    collected from klarna, An order is then created in in the database,
+    once that is done the cart and order_id is cleared from the session.
+    """
     print('checkout_success')
-    return render(request, 'checkout/completed.html')
+    auth = HTTPBasicAuth(klarna_un, klarna_pw)
+    headers = {'content-type': 'application/json'}
+    response = requests.get(
+                        settings.KLARNA_BASE_URL + '/checkout/v3/orders/' +
+                        request.session['order_id'],
+                        auth=auth,
+                        headers=headers,
+                       )
+    klarna_order = response.json()
+    order = Order(
+        order_id=klarna_order['order_id'],
+        status=klarna_order['status'],
+        given_name=klarna_order['billing_address']['given_name'],
+        family_name=klarna_order['billing_address']['family_name'],
+        email=klarna_order['billing_address']['email'],
+        phone_number=klarna_order['billing_address']['phone'],
+        country=klarna_order['billing_address']['country'],
+        postcode=klarna_order['billing_address']['postal_code'],
+        town_or_city=klarna_order['billing_address']['city'],
+        street_address1=klarna_order['billing_address']['street_address'],
+        order_total=klarna_order['order_amount'],
+        klarna_line_items=klarna_order['order_lines']
+    )
+    order.save()
+    request.session['cart'] = {}
+    request.session['order_id'] = ''
+    print(klarna_order)
+    context = {
+        'klarna_order': klarna_order
+        }
+
+    return render(request, 'checkout/completed.html', context)

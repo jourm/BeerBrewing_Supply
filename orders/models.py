@@ -8,6 +8,7 @@ from django_countries.fields import CountryField
 
 class Order(models.Model):
     order_id = models.CharField(max_length=56, null=False, editable=False)
+    status = models.CharField(max_length=56, null=False, default='created')
     #user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
     #                                 null=True, blank=True,
     #                                 related_name='orders')

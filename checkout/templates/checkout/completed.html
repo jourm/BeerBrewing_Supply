@@ -2,4 +2,5 @@
 
 {% block content %}
     <h1>Checkout completed</h1>
+    {{ klarna_order.html_snippet|safe }}
 {% endblock %}
