@@ -182,3 +182,10 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+#  KLARNA CHHECKOUT
+KLARNA_UN = os.environ.get("KLARNA_UN")
+KLARNA_PW = os.environ.get("KLARNA_PW")
+KLARNA_BASE_URL = 'https://api.playground.klarna.com/'
+
