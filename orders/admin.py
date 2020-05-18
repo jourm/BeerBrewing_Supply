@@ -14,8 +14,7 @@ class OrderAdmin(admin.ModelAdmin):
     fields = ('order_id', 'date', 'given_name', 'family_name',
               'email', 'phone_number', 'country',
               'postcode', 'town_or_city', 'street_address1',
-              'county',
-              'order_total', 'grand_total', 'klarna_line_items')
+              'order_total', 'klarna_line_items')
 
     list_display = ('order_id', 'date', 'given_name',
                     'family_name', 'order_total')
