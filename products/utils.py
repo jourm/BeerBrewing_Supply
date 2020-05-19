@@ -10,8 +10,8 @@ def get_product(product_id):
     Record from the correct child table] """
     test = Product.objects.get(pk=product_id)
     models = [["yeast", Yeast], ["malt", Malt], ["hop", Hop],
-              ["equipment", Eqipment], ["book", Book]]
-
+              ["eqipment", Eqipment], ["book", Book]]
+    
     for m in models:
         try:
             if test.__getattribute__(m[0]):
