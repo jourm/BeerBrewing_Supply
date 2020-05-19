@@ -66,7 +66,7 @@ def checkout(request):
                 "order_tax_amount": 0,
                 "order_lines": orderlines,
                 "merchant_urls": {
-                    "terms": reverse('terms'),
+                    "terms": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/terms",
                     "checkout": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/completed",
                     "confirmation": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/checkout/completed",
                     "push": "https://8000-b75f1113-8d8d-4b56-9dba-760d8dc7771f.ws-eu01.gitpod.io/orders/register_order?sid={checkout.order.id}"
@@ -102,7 +102,6 @@ def checkout(request):
                             data=data)
 
             klarna_order = response.json()
-            print(klarna_order)
             context = {
                 'klarna_order': klarna_order
             }

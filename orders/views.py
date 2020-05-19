@@ -23,16 +23,13 @@ def register_order(request):
     and payment is made. This function then checks if the order exists in the
     database, if it does it calls Klarna and acknowledges the order, and if not
     it creates the order and then acknowledges the order """
-    print(request.headers)
-    print('\n*BODY')
-    print(request.body)
-    print(request['sid'])
+    
     auth = HTTPBasicAuth(klarna_un, klarna_pw)
     headers = {'content-type': 'application/json'}
-    if request.POST.get('sid'):
-        order_id = request.POST.get('sid')
+    if request.GET.get('sid'):
+        order_id = request.GET.get('sid')
         response = requests.get(
-            settings.KLARNA_BASE_URL + '/ordermanagement/v3/orders/' +
+            settings.KLARNA_BASE_URL + '/ordermanagement/v1/orders/' +
             order_id,
             auth=auth,
             headers=headers,
@@ -40,8 +37,8 @@ def register_order(request):
         klarna_order = response.json()
         klarna_order['order_id']
         if Order.objects.filter(order_id = klarna_order['order_id']).count() == 1:
-            requests.POST(
-                settings.KLARNA_BASE_URL + '/ordermanagement/v3/orders/' +
+            requests.post(
+                settings.KLARNA_BASE_URL + '/ordermanagement/v1/orders/' +
                 order_id + '/acknowledge',
                 auth=auth,
                 headers=headers,
@@ -62,21 +59,10 @@ def register_order(request):
                 klarna_line_items=klarna_order['order_lines']
             )
             order.save()
-            requests.POST(
+            requests.post(
                     settings.KLARNA_BASE_URL + '/ordermanagement/v3/orders/' +
                     order_id + '/acknowledge',
                     auth=auth,
                     headers=headers,
                 )
-    return HttpResponse()
-
-#    print('RECEIVED REQUEST =)')
-#    print(request.method)
-#    print('\n*HEADERS')
-#    print(request.headers)
-#    print('\n*BODY')
-#   print(request.body)
-#    if request.POST:
-#        print(request.POST, request.headers)
-#
-#    return render(request, 'orders/orders.html')
+    return HttpResponse(status=200)

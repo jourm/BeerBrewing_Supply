@@ -46,7 +46,7 @@ class TestCartViews(TestCase):
         self.assertEqual(self.client.session['cart'], {'1': 1})
 
 
-    def test_uppdate_cart(self):
+    def test_update_cart(self):
         """ Tests that uppdate_cart works by creating a prodct,
         adding it to the cart, and the calling uppdate cart to change
         the amount of books in the cart

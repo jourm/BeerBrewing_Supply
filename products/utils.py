@@ -11,7 +11,7 @@ def get_product(product_id):
     test = Product.objects.get(pk=product_id)
     models = [["yeast", Yeast], ["malt", Malt], ["hop", Hop],
               ["eqipment", Eqipment], ["book", Book]]
-    
+
     for m in models:
         try:
             if test.__getattribute__(m[0]):
