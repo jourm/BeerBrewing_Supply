@@ -6,6 +6,7 @@ from requests.auth import HTTPBasicAuth
 import json
 from products import utils
 from orders.models import Order
+from django.http import HttpResponse
 # Create your views here.
 
 klarna_un = settings.KLARNA_UN
@@ -22,10 +23,14 @@ def register_order(request):
     and payment is made. This function then checks if the order exists in the
     database, if it does it calls Klarna and acknowledges the order, and if not
     it creates the order and then acknowledges the order """
+    print(request.headers)
+    print('\n*BODY')
+    print(request.body)
+    print(request['sid'])
     auth = HTTPBasicAuth(klarna_un, klarna_pw)
     headers = {'content-type': 'application/json'}
-    if request['sid']:
-        order_id = request['sid']
+    if request.POST.get('sid'):
+        order_id = request.POST.get('sid')
         response = requests.get(
             settings.KLARNA_BASE_URL + '/ordermanagement/v3/orders/' +
             order_id,
@@ -63,7 +68,7 @@ def register_order(request):
                     auth=auth,
                     headers=headers,
                 )
-
+    return HttpResponse()
 
 #    print('RECEIVED REQUEST =)')
 #    print(request.method)

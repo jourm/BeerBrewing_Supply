@@ -1,3 +1,9 @@
 from django.test import TestCase
 
-# Create your tests here.
+class TestCheckout(TestCase):
+    def test_terms(self):
+        response = self.client.get('/checkout/terms')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'checkout/terms.html')
+
+

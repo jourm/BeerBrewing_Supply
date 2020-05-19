@@ -1,6 +1,5 @@
 from django.test import TestCase
 from products.models import Product, Book
-from django.test import Client
 from django.urls import reverse
 from . import views
 
@@ -28,8 +27,8 @@ class TestCartViews(TestCase):
     def test_view_cart(self):
         """ Test the cart view by creating an object, adding it to the cart
         and then visiting the view_cart and testing that the cart is avaliable
-        in session and that the correct template is used 
-       This test is depandant on add_to_cart and the Book model"""
+        in session and that the correct template is used
+        This test is depandant on add_to_cart and the Book model"""
         book = Book.objects.create(
             name='beer',
             price=10,

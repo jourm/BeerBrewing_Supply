@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 import requests
 from requests.auth import HTTPBasicAuth
 import json
 from products import utils
 from orders.models import Order
+from django.urls import reverse
+from cart.views import view_cart
 
 # Create your views here.
 
@@ -188,36 +190,43 @@ def completed(request):
     collected from klarna, An order is then created in in the database,
     once that is done the cart and order_id is cleared from the session.
     """
-    print('checkout_success')
-    auth = HTTPBasicAuth(klarna_un, klarna_pw)
-    headers = {'content-type': 'application/json'}
-    response = requests.get(
-                        settings.KLARNA_BASE_URL + '/checkout/v3/orders/' +
-                        request.session['order_id'],
-                        auth=auth,
-                        headers=headers,
-                       )
-    klarna_order = response.json()
-    order = Order(
-        order_id=klarna_order['order_id'],
-        status=klarna_order['status'],
-        given_name=klarna_order['billing_address']['given_name'],
-        family_name=klarna_order['billing_address']['family_name'],
-        email=klarna_order['billing_address']['email'],
-        phone_number=klarna_order['billing_address']['phone'],
-        country=klarna_order['billing_address']['country'],
-        postcode=klarna_order['billing_address']['postal_code'],
-        town_or_city=klarna_order['billing_address']['city'],
-        street_address1=klarna_order['billing_address']['street_address'],
-        order_total=klarna_order['order_amount'],
-        klarna_line_items=klarna_order['order_lines']
-    )
-    order.save()
-    request.session['cart'] = {}
-    request.session['order_id'] = ''
-    print(klarna_order)
-    context = {
-        'klarna_order': klarna_order
-        }
+    order_id = ''
+    try:
+        order_id = request.session['order_id']
+    except:
+        pass
+    if order_id != '':
+        auth = HTTPBasicAuth(klarna_un, klarna_pw)
+        headers = {'content-type': 'application/json'}
+        response = requests.get(
+                            settings.KLARNA_BASE_URL + '/checkout/v3/orders/' +
+                            order_id,
+                            auth=auth,
+                            headers=headers,
+                        )
+        klarna_order = response.json()
+        order = Order(
+            order_id=klarna_order['order_id'],
+            status=klarna_order['status'],
+            given_name=klarna_order['billing_address']['given_name'],
+            family_name=klarna_order['billing_address']['family_name'],
+            email=klarna_order['billing_address']['email'],
+            phone_number=klarna_order['billing_address']['phone'],
+            country=klarna_order['billing_address']['country'],
+            postcode=klarna_order['billing_address']['postal_code'],
+            town_or_city=klarna_order['billing_address']['city'],
+            street_address1=klarna_order['billing_address']['street_address'],
+            order_total=klarna_order['order_amount'],
+            klarna_line_items=klarna_order['order_lines']
+        )
+        order.save()
+        request.session['cart'] = {}
+        request.session['order_id'] = ''
+        
+        context = {
+            'klarna_order': klarna_order
+            }
 
-    return render(request, 'checkout/completed.html', context)
+        return render(request, 'checkout/completed.html', context)
+    else:
+        return redirect(reverse(view_cart))
