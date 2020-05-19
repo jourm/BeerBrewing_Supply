@@ -20,7 +20,6 @@ def add_to_cart(request, item_id):
         cart[item_id] = quantity
 
     request.session['cart'] = cart
-    print(request.session['cart'])
     return redirect(redirect_url)
 
 
@@ -31,9 +30,7 @@ def uppdate_cart(request, item_id):
     redirect_url = request.POST.get('redirect_url')
     cart = request.session.get('cart', {})
     cart[item_id] = quantity
-
     request.session['cart'] = cart
-    print(request.session['cart'])
     return redirect(redirect_url)
 
 
