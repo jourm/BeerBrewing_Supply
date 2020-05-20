@@ -9,15 +9,16 @@ class OrderAdmin(admin.ModelAdmin):
 
     readonly_fields = ('order_id', 'date',
                        'order_total',
-                       'klarna_line_items',)
+                       'klarna_line_items',
+                       'status')
 
     fields = ('order_id', 'date', 'given_name', 'family_name',
               'email', 'phone_number', 'country',
               'postcode', 'town_or_city', 'street_address1',
-              'order_total', 'klarna_line_items')
+              'order_total', 'klarna_line_items', 'status')
 
     list_display = ('order_id', 'date', 'given_name',
-                    'family_name', 'order_total')
+                    'family_name', 'order_total', 'status')
 
     ordering = ('-date',)
 

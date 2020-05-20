@@ -37,6 +37,9 @@ def register_order(request):
         klarna_order = response.json()
         klarna_order['order_id']
         if Order.objects.filter(order_id = klarna_order['order_id']).count() == 1:
+            order = Order.objects.filter(order_id = klarna_order['order_id']).first()
+            order.status = klarna_order['status']
+            order.save()
             requests.post(
                 settings.KLARNA_BASE_URL + '/ordermanagement/v1/orders/' +
                 order_id + '/acknowledge',
@@ -66,3 +69,12 @@ def register_order(request):
                     headers=headers,
                 )
     return HttpResponse(status=200)
+
+def orders_to_ship(request):
+   orders = Order.objects.filer(status="AUTHORIZED")
+
+   context = {
+       'orders': orders
+   }
+
+    return render()
