@@ -9,7 +9,7 @@ class Blog(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     uppdated = models.DateTimeField(auto_now= True)
     content = models.TextField()
-    image = models.ImageField()
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.title
