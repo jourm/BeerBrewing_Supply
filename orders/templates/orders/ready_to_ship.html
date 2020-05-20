@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">order_id</th>
+                    <th scope="col"></th>
+                    <th scope="col">products</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            {% for order in orders%}
+            <tr>
+                <td class="p-3 w-25">
+                    <p class="my-0"><strong>{{ order.order_id }}</strong></p>
+                </td>
+                <td class="py-3">
+                    
+                </td>
+                <td class="py-3">
+                <p class="my-0">{{ item }}</p><br>
+<!--                 {% for item in order.klarna_line_items %}
+                    <p class="my-0">{{ item }}</p><br>
+                {% endfor %} -->
+                </td>
+                <td class="py-3 w-25">
+<!--                     {% for item in order.klarna_line_items %}
+                    <p class="my-0">{{ item.quantity }}</p><br>
+                    {% endfor %} -->
+                </td>
+                <td>
+                  <a href=""><button class="btn btn-success">Ship Order</button></a>
+                </td>
+            </tr>
+    {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -70,11 +70,13 @@ def register_order(request):
                 )
     return HttpResponse(status=200)
 
-def orders_to_ship(request):
-   orders = Order.objects.filer(status="AUTHORIZED")
 
-   context = {
+def ready_to_ship(request):
+    orders = Order.objects.filter(status="AUTHORIZED")
+
+    context = {
        'orders': orders
-   }
+    }
 
-    return render()
+    return render(request, 'orders/ready_to_ship.html', context)
+
