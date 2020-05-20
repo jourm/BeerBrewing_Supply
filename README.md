@@ -42,5 +42,6 @@ the basic information such as name, Price and image, for all products can be fou
 what sub table to look in if one only has the date from the base table. This was solved by creating a utillity function get_product() that from an id finds the product in its table.
 Information and inspiration for this product model was found on [RealPython.com](https://realpython.com/modeling-polymorphism-django-python/)
 Product creation is managed through the default django admin panel.
+![Product Database Model](https://github.com/jourm/BeerBrewing_Supply/blob/master/media/ProductModel.PNG)
 #### Hops
 The Hops product 
