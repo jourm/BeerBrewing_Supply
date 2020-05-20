@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form class="form" method="POST" action="{% url 'edit_blog' blog.id %}">
+    {% csrf_token %}
+    <fieldset>
+    {{ form.as_p|linebreaks }} 
+    </fieldset>
+    <input class="btn btn-success" type="submit" value="Save Edit" method="post">
+    </form>
+{% endblock %}

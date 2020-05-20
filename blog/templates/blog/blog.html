@@ -9,6 +9,9 @@
             <h4 class="card-title">{{ blog.title }}</h4>
             <p class="card-text">{{ blog.content }}</p>
             <small>{{ blog.updated }}</small>
+            {% if request.user.is_superuser %}
+            <a class="btn btn-warning" href="{% url 'edit_blog' blog.id %}">Edit blog</a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

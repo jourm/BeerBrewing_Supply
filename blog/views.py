@@ -32,3 +32,20 @@ def add_blog(request):
     return redirect(reverse(view_blogs))
 
 
+def edit_blog(request, blog_id):
+    if request.method == 'GET':
+        blog = Blog.objects.get(pk=blog_id)
+        form = NewBlogPost(instance=blog)
+        context = {
+                'form': form,
+                'blog': blog
+            }
+        return render(request, 'blog/edit_blog.html', context)
+    elif request.method == 'POST':
+        instance = Blog.objects.get(pk=blog_id)
+        form = NewBlogPost(request.POST, instance=instance)
+        if form.is_valid():
+            print('new')
+            new_blog = form.save()
+
+    return redirect(reverse(view_blogs))
