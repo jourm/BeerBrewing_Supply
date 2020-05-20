@@ -45,7 +45,6 @@ def edit_blog(request, blog_id):
         instance = Blog.objects.get(pk=blog_id)
         form = NewBlogPost(request.POST, instance=instance)
         if form.is_valid():
-            print('new')
             new_blog = form.save()
 
     return redirect(reverse(view_blogs))

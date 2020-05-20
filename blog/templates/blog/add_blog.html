@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <form class="form" method="POST" action="{% url 'add_blog' blog.id %}">
+    <form class="form" method="POST" action="{% url 'add_blog' %}">
     {% csrf_token %}
     <fieldset>
     {{ form.as_p|linebreaks }} 
