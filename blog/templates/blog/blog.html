@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for blog in blogs %}
+     <div class="card border-primary mb-3 col-sm-12 col-lg-10" >
+      <!--  <img class="card-img-top img-fluid" src="{{ blog.image.url }}"> -->
+        <div class="card-header"></div> 
+        <div class="card-body">
+            <h4 class="card-title">{{ blog.title }}</h4>
+            <p class="card-text">{{ blog.content }}</p>
+            <small>{{ blog.updated }}</small>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
