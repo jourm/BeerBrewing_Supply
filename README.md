@@ -1,39 +1,46 @@
-<img src="https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png" style="margin: 0;">
+My local Home Brewing shop has been forced to close in the wake of the coronavirus.
+The purpose of this project is to create a prototype for a new website with a online shop from them.
+The Shop also sells equipment and ingredients for wine and cider making,
+but initially the project will only cover the beer brewing side of the business. 
+A beer brewing shop has many forms of products and most of these have more sub categories,
+there can for exaple be over  20 subcategoreis to Equipment. The goal of this project is not to create
+all of these categories but more of a base that a full store could be built upon.
 
-Welcome jourm,
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project.
+## Business goals of the site:
 
-## Gitpod Reminders
+* Sell Equipment, ingredients, etc that are used for beer brewing.
+* Promote the beerbrewing hobby
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## User stories:
+There are three main kinds of users.
+1. Site Owner
+2. Experienced Homebrewer
+3. Beginner Homebrewer
+1. As the site owner I want to …. So that I can ….
+    * Display the products I have for sale. -- Make money
+    * Post information About upcoming sales, new products, Brewing news etc -- Keep my customers informed and drive up sales 
+    * Add new Products -- Sell them
+2. As a Experienced Homebrewer I want to …. So that I can ….
+    * Buy Ingredients for my next beer -- Brew beer
+    * Advance my knowledge -- brew better beer
+    * Keep track of my previous purchases. -- Know what ingredients i used last time.
+    * Buy New equipment. -- Test a new method, improve my setup.
+    * Buy consumables. -- Keep my equipment clean and up to date
+3. As a beginner Homebrewer I  want to …. So that I can ….
+    * Find relevant information easily. -- Get into the hobby
+    * Find a beginner kit. -- Brew my first beer
 
-`python3 -m http.server`
+## Features
+### Navbar
+* Avliable on all pages and features links for veiwing the diferent categories of products, The shopping cart, account creation and management.
 
-A blue button should appear to click: *Make Public*,
-
-Another blue button should appear to click: *Open Browser*.
-
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
-
-A blue button should appear to click: *Make Public*,
-
-Another blue button should appear to click: *Open Browser*.
-
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the backend lessons.
-
-## Updates Since The Instructional Video
-
-We continually tweak and adjust this template to help give you the best experience. Here are the updates since the original video was made:
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
---------
-
-Happy coding!
+### Products
+The Project features a polymorfic product model with several sub classes, this was done due to the fact that a beer brewing shop
+features many diferent kinds of products and the diferent products can have very different attributes. By having a Concrete Base Model with some common fields, 
+the basic information such as name, Price and image, for all products can be found in the product table. The issue with this database model is that there is no simple way to know 
+what sub table to look in if one only has the date from the base table. This was solved by creating a utillity function get_product() that from an id finds the product in its table.
+Information and inspiration for this product model was found on [RealPython.com](https://realpython.com/modeling-polymorphism-django-python/)
+Product creation is managed through the default django admin panel.
+#### Hops
+The Hops product 
