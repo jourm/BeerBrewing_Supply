@@ -1,4 +1,12 @@
 
-.product-cart {
+.product-card {
     padding-top: 20px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+.img-fluid{
+    max-height: 150px;
 }

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import requests
@@ -7,6 +7,7 @@ import json
 from products import utils
 from orders.models import Order
 from django.http import HttpResponse
+from django.urls import reverse
 # Create your views here.
 
 klarna_un = settings.KLARNA_UN
@@ -73,27 +74,29 @@ def register_order(request):
 
 def ready_to_ship(request):
     orders = Order.objects.filter(status="AUTHORIZED")
-    order_items = []
-    orderlist = []
-    for order in orders:
-        orderlist = order.klarna_line_items.split(sep='}')
-        itemlist = []
-        for item in orderlist:
-            try:
-                print(item.split(sep=',')[1])
-                print(item.split(sep=',')[2])
-                itemlist.append({
-                item.split(sep=',')[1],
-                item.replace('}', '').split(sep=',')[2]
-                })
-            except:
-                pass
-        order_items.append(itemlist)
-    print(order_items)
     context = {
        'orders': orders,
-       'order_items': order_items
     }
 
     return render(request, 'orders/ready_to_ship.html', context)
 
+
+def capture(request, order_id):
+    auth = HTTPBasicAuth(klarna_un, klarna_pw)
+    headers = {'content-type': 'application/json'}
+    order = Order.objects.filter(order_id=order_id).first()
+    body = json.dumps({ 
+        "captured_amount": int(order.order_total),
+        "description": "string",
+        "reference": "string",
+    })
+    requests.post(
+                    settings.KLARNA_BASE_URL + '/ordermanagement/v1/orders' +
+                    order_id + '/captures',
+                    auth=auth,
+                    headers=headers,
+                    data=body,
+                )
+    order.status = 'captured'
+    order.save()
+    return redirect(reverse(ready_to_ship))

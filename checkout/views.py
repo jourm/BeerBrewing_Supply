@@ -28,7 +28,9 @@ def checkout(request):
         order_id = request.session['order_id']
     except:
         pass
-
+    print(request.build_absolute_uri() + reverse('terms'))
+    print(request.scheme + request.META['HTTP_HOST'] + reverse('checkout_completed'))
+    print(f"{request.scheme}://{request.META['HTTP_HOST']}{reverse('checkout_completed')}")
     for item in cart:
         product = utils.get_product(item)
         orderlines.append({

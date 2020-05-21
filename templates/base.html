@@ -15,7 +15,7 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#"> <h4>BeerBrewing Supply</h4> <i class="fas fa-beer"></i></a>
+  <a class="navbar-brand" href="{% url 'view_blogs' %}"> <h4>BeerBrewing Supply</h4></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -45,7 +45,8 @@
         <li><a class="font-weight-bold nav-link" href="{% url 'account_signup' %}">Sign Up</a></li>
         {% endif %}
         {% if user.is_superuser %}
-        <li><a class="font-weight-bold nav-link" href="{% url 'add_blog' %}">Add New plogpost</a></li>
+        <li><a class="font-weight-bold nav-link" href="{% url 'add_blog' %}">Add New Blogpost</a></li>
+        <li><a class="font-weight-bold nav-link" href="{% url 'ready_to_ship' %}">Orders to Ship</a></li>
         {% endif %}
         <li class="list-inline-item">
          <a class="font-weight-bold nav-link" href="{% url 'view_cart' %}">
