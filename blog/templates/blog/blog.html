@@ -1,8 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- Sidebar Widgets Column -->
+<div class="d-xm-none d-md-block col-md-4 float-right">
+    <div class="card my-4">
+        <h5 class="card-header">About Us</h5>
+        <div class="card-body">
+            <p class="card-text"> We are a small Beer Brewing supply shop in Gothenbutg with a team of dedicated Personel</p>
+            <a href=""
+            class="btn btn-danger">Check Out our products</a>
+            <h4>Latest aditions:</h4>
+            {% for product in products %}
+                 {% if product.image_url %}
+                    <a href="{% url 'product_detail' product.id %}">
+                        <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.name }}">
+                    </a>
+                {% endif %}                  
+                         <p class="mb-0">{{ product.name }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
     {% for blog in blogs %}
-     <div class="card border-primary mb-3 col-sm-12 col-lg-10" >
+     <div class="card border-primary mb-3 col-sm-12 col-md-8" >
         <img class="card-img-top img-fluid" src="{{ blog.image.url }}"> 
         <div class="card-header"></div> 
         <div class="card-body">

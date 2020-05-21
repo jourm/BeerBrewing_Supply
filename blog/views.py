@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import NewBlogPost
 from .models import Blog
 from django.urls import reverse
+from products.models import Product
 
 
 # Create your views here.
@@ -9,8 +10,10 @@ from django.urls import reverse
 
 def view_blogs(request):
     blogs = Blog.objects.all()
+    products = Product.objects.all().order_by('-id')[:4]
     context = {
         'blogs': blogs,
+        'products': products
     }
     return render(request, 'blog/blog.html', context)
 

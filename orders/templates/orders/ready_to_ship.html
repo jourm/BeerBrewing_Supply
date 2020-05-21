@@ -12,7 +12,7 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            {% for order in orders%}
+            {% for order in orders,  %}
             <tr>
                 <td class="p-3 w-25">
                     <p class="my-0"><strong>{{ order.order_id }}</strong></p>
@@ -21,15 +21,14 @@
                     
                 </td>
                 <td class="py-3">
-                <p class="my-0">{{ item }}</p><br>
-<!--                 {% for item in order.klarna_line_items %}
-                    <p class="my-0">{{ item }}</p><br>
-                {% endfor %} -->
+                {% for item in order_items[{{ forloop.counter0 }}] %}
+                    <p> item.name </p><br>
+                {% endfor %}
                 </td>
                 <td class="py-3 w-25">
-<!--                     {% for item in order.klarna_line_items %}
-                    <p class="my-0">{{ item.quantity }}</p><br>
-                    {% endfor %} -->
+                {% for item in order_items[{{ forloop.counter0 }}] %}
+                    <p> item.quantity </p><br>
+                {% endfor %}
                 </td>
                 <td>
                   <a href=""><button class="btn btn-success">Ship Order</button></a>

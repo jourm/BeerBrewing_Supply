@@ -73,9 +73,26 @@ def register_order(request):
 
 def ready_to_ship(request):
     orders = Order.objects.filter(status="AUTHORIZED")
-
+    order_items = []
+    orderlist = []
+    for order in orders:
+        orderlist = order.klarna_line_items.split(sep='}')
+        itemlist = []
+        for item in orderlist:
+            try:
+                print(item.split(sep=',')[1])
+                print(item.split(sep=',')[2])
+                itemlist.append({
+                item.split(sep=',')[1],
+                item.replace('}', '').split(sep=',')[2]
+                })
+            except:
+                pass
+        order_items.append(itemlist)
+    print(order_items)
     context = {
-       'orders': orders
+       'orders': orders,
+       'order_items': order_items
     }
 
     return render(request, 'orders/ready_to_ship.html', context)

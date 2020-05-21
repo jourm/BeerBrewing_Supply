@@ -5,26 +5,29 @@
         <div class="row">
     {% for product in products %}
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="card">
+                            <div class="card product-card" style="width: 13 rem;">
                                 {% if product.image_url %}
                                 <a href="{% url 'product_detail' product.id %}">
                                     <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.name }}">
                                 </a>
-                                {% else %}
-                                <a href="{% url 'product_detail' product.id %}">
-                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
-                                </a>
                                 {% endif %}
                                 <div class="card-body pb-0">
-                                    <p class="mb-0">{{ product.name }}</p>
+                                    <h5>{{ product.name }}</h5>
                                 </div>
                                 <div class="card-footer text-left">
                                     <div class="row">
                                         <div class="col">
-                                            <p class="text-left font-weight-bold">${{ product.price }}</p> 
+                                            <p class="text-left font-weight-bold">{{ product.price }}€</p> 
+                                             <form class="form" method="POST" action="{% url 'add_to_cart' product.id %}">
+                                            {% csrf_token %}
+                                                <input type="hidden" value="1" name="amount" data-item_id="{{ product.id }}" id="id_amount_{{ product.id }}" >
+                                                <input type="submit" value="Add to cart" class="btn btn-primary">
+                                                <input type="hidden" name="redirect_url" value="{{ request.path }}"> 
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
+                               
                             </div>
                         </div>
                         {% if forloop.counter|divisibleby:1 %}
