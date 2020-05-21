@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link rel="stylesheet" href="{% static 'css/boot.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom_css.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom_css.css' %}">
     <script src="https://kit.fontawesome.com/074d59540c.js" crossorigin="anonymous"></script>
 	<title>BeerBrewing Supply</title>
 </head>
@@ -43,6 +43,9 @@
         {% else %}
         <li><a class="font-weight-bold nav-link" href="{% url 'account_login' %}">Sign In</a></li>
         <li><a class="font-weight-bold nav-link" href="{% url 'account_signup' %}">Sign Up</a></li>
+        {% endif %}
+        {% if user.is_superuser %}
+        <li><a class="font-weight-bold nav-link" href="{% url 'add_blog' %}">Add New plogpost</a></li>
         {% endif %}
         <li class="list-inline-item">
          <a class="font-weight-bold nav-link" href="{% url 'view_cart' %}">
