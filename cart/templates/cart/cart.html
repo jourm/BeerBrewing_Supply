@@ -2,12 +2,11 @@
 
 {% block content %}
 
-    <div class="container">
-        <div class="row">
+
             <div class="col">
                 <h2>Shopping Cart</h2>
             </div>
-        </div>
+        
         <div class="row">
             <div class="col">
                 {% if cart_items %}
@@ -25,7 +24,7 @@
                             {% for item in cart_items %}
                                 <tr>
                                     <td class="p-3 w-25">
-                                        <img class="img-fluid rounded" src="{{ item.product.image_url }}">
+                                        <img class="img-fluid rounded" src="{{ item.product.image.url }}">
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0"><strong>{{ item.product.name }}</strong></p>
@@ -44,7 +43,7 @@
                                         
                                         <input type="hidden" name="redirect_url" value="{{ request.path }}"> 
                                         </form>
-                                        <a href="{% url 'delete_from_cart' item.product.id %}"><button class="btn btn-warning">Delete Item</button></a>
+                                        <a href="{% url 'delete_from_cart' item.product.id %}"><button class="btn btn-warning">Delete</button></a>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">{{ item.subtotal }} €</p>
@@ -52,19 +51,19 @@
                                 </tr>
                             {% endfor %}
                             <tr>
-                                <td colspan="5" class="pt-5 text-right">
-                                    <h6><strong>Bag Total: ${{ total|floatformat:2 }}</strong></h6>
-                                    <h4 class="mt-4"><strong>Grand Total: {{ grand_total|floatformat:2 }} €</strong></h4>
+                                <td colspan="5">
+                                    <h6><strong>Cart Total: ${{ total|floatformat:2 }}</strong></h6>
                                 </td>
                             </tr>
                             <tr>
-                                 <td colspan="5" class="text-right">
+                                 <td colspan="5">
                                     <a href="{% url 'products' %}" class="btn btn-primary ">
                                         <span class="icon">
                                             <i class="fas fa-chevron-left"></i>
                                         </span>
                                         <span class="text-uppercase">Keep Shopping</span>
                                     </a>
+                                    <div class="d-block d-sm-none"><br></div>
                                     <a href="{% url 'checkout' %}" class="btn btn-success ">
                                         <span class="text-uppercase">Secure Checkout</span>
                                         <span class="icon">
@@ -77,9 +76,9 @@
                     </div>
                 {% else %}
                     <p>Your Bag is empty</p>
-                    <a href="" class="btn btn-primary ">Keep Shopping</a>
+                    <a href="{% url 'products' %}" class="btn btn-primary ">Keep Shopping</a>
                 {% endif %}
             </div>
         </div>
-    </div>
+
 {% endblock %}
