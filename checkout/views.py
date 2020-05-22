@@ -72,7 +72,7 @@ def checkout(request):
                     "terms": "https://beerbrewing-supply.herokuapp.com" + "/checkout/terms",
                     "checkout": "https://beerbrewing-supply.herokuapp.com" + "/checkout/completed",
                     "confirmation": "https://beerbrewing-supply.herokuapp.com" + "/checkout/completed",
-                    "push": "https://beerbrewing-supply.herokuapp.com" + "/register_order?sid={checkout.order.id}"
+                    "push": "https://beerbrewing-supply.herokuapp.com" + "/orders/register_order?sid={checkout.order.id}"
                     },
                 "shipping_options": [
                 {
@@ -139,7 +139,7 @@ def checkout(request):
                     "terms": "https://beerbrewing-supply.herokuapp.com" + "/checkout/terms",
                     "checkout": "https://beerbrewing-supply.herokuapp.com" + "/checkout/completed",
                     "confirmation": "https://beerbrewing-supply.herokuapp.com" + "/checkout/completed",
-                    "push": "https://beerbrewing-supply.herokuapp.com" + "/register_order?sid={checkout.order.id}"
+                    "push": "https://beerbrewing-supply.herokuapp.com" + "/orders/register_order?sid={checkout.order.id}"
                 },
             "shipping_options": [
             {
