@@ -1,3 +1,6 @@
+# Beer Brewing Supply
+Checkout on heroku [https://beerbrewing-supply.herokuapp.com/](https://beerbrewing-supply.herokuapp.com/)
+![https://github.com/jourm/BeerBrewing_Supply/blob/master/media/homepage.PNG](https://github.com/jourm/BeerBrewing_Supply/blob/master/media/homepage.PNG)
 My local Home Brewing shop has been forced to close in the wake of the coronavirus.
 The purpose of this project is to create a prototype for a new website with a online shop from them.
 The Shop also sells equipment and ingredients for wine and cider making,
