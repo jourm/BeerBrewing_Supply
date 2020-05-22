@@ -31,6 +31,8 @@ There are three main kinds of users.
     * Find relevant information easily. -- Get into the hobby
     * Find a beginner kit. -- Brew my first beer
 
+## Wireframes
+
 ## Features
 ### Navbar
 * Avliable on all pages and features links for veiwing the diferent categories of products, The shopping cart, account creation and management.
@@ -123,6 +125,7 @@ This project uses Gunicorn to run the server on Heroku.
 
 
 ## Testing 
+
 This Project uses Automated testing in python. Test were created in each apps tests.py and tests the functionality of the app.
 Some views require a superuser to be logged in, the tests were ran with logged in required and if if request.user.is_superuser: commented out
 since the setUp for testing dosnt support creating a superuser.
@@ -150,21 +153,38 @@ coverage of these apps is low. But this will instead be tested manually.
 **Passed:** Yes 
 
 **Test:** Checkout using testing creditcard details from Klarna.  
-**Expected Outcome:** Checkout forms renders correctly, the amount to be paid remains the same, once checkout is completed an email is recived with a order confirmation.  
-**Outcome:** Landingpage displays.  
+**Expected Outcome:** Checkout forms renders correctly, the amount to be paid remains the same and once checkout is completed the checkout completed page is rendered. The order is then avaliable in the Ready to ship section for the site owner.  
+**Outcome:** Checkout forms renders correctly, the amount to be paid remains the same and once checkout is completed the checkout completed page is rendered. The order is then avaliable in the Ready to ship section for the site owner.
 **Passed:** Yes 
 
-**Test:** Visit site.  
-**Expected Outcome:** Landingpage displays.  
-**Outcome:** Landingpage displays.  
+**Test:** Visit Orders to ship, click ship order.  
+**Expected Outcome:** Order dissapears from the display and is Captured In Klarnas system.  
+**Outcome:** Order dissapears from the display and is Captured In Klarnas system. 
 **Passed:** Yes 
 
-**Test:** Visit site.  
-**Expected Outcome:** Landingpage displays.  
-**Outcome:** Landingpage displays.  
-**Passed:** Yes 
+## Deployment 
+## How to run this project locally.
+* Make sure you have a IDE with a virtual enviroment running python3. Preferably gitpod online IDE.
+This description will be based on you using Gitpod online IDE. 
+* Go to [https://github.com/jourm/BeerBrewing_Supply](https://github.com/jourm/BeerBrewing_Supply) if you have Gitpod extension installed in you browser, a button with Gitpod will be visible next to clone/download press Gitpod.
+* This will open the project in gitpod Online IDE. 
+* Use pip to install all the required packages in requirements.txt  with : pip -r requirements.txt.
+* In checkout.views you need to uppdate the urls in merchanturls to the url you are running your project from.
+* Signup for Klarna testing envirioment [Klarna](https://developers.klarna.com/)
+* Signup For AWS and create S3 bucket with public access And set up accsess keys. 
+* In gitpod settings add the follwoing AWS_ACCESS_KEY_ID, AWS_ACCESS_KEY_ID, AWS_ACCESS_KEY_ID, KLARNA_PW, KLARNA_PW
+* Run python3 manage.py migrate in the terminal to migrate models to you database
+* Run python3 manage.py createsuperuser in the terminal to create a superuser
+* Run python3 manage.py runserver in the terminal to host the program locally.
 
-**Test:** Visit site.  
-**Expected Outcome:** Landingpage displays.  
-**Outcome:** Landingpage displays.  
-**Passed:** Yes 
+
+## Deploy on heroku.
+* First follow steps to run project locally.
+* Commit and push project to your github account.
+* Create Heroku account.
+* Create new app.
+* On heroku, go to resources, seach for postgress, click it and selecth the Hobby dev - Free plan, click provision
+* On heroku, go to deploy > connect to github repo and connect heroku to you github repo.
+* Settings > set config vars AWS_ACCESS_KEY_ID, AWS_ACCESS_KEY_ID, AWS_ACCESS_KEY_ID, KLARNA_PW, KLARNA_PW
+* On heroku go to more -> run console in the console run python3 manage.py migrate and python3 manage.py createsuperuser
+* Go to deploy, scroll down and click "enable automatic deploys"
