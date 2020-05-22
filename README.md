@@ -32,6 +32,11 @@ There are three main kinds of users.
     * Find a beginner kit. -- Brew my first beer
 
 ## Wireframes
+[Products](https://github.com/jourm/BeerBrewing_Supply/blob/master/media/Products.PNG)
+[Product Details](https://github.com/jourm/BeerBrewing_Supply/blob/master/media/productdetails.PNG)
+[Cart](https://github.com/jourm/BeerBrewing_Supply/blob/master/media/cart.PNG)
+
+
 
 ## Features
 ### Navbar
@@ -125,7 +130,36 @@ This project uses Gunicorn to run the server on Heroku.
 
 
 ## Testing 
+### Testing of User stories
+1. Site Owner
+2. Experienced Homebrewer
+3. Beginner Homebrewer
+1. As the site owner I want to …. So that I can ….
+    1. Display the products I have for sale. -- Make money
+    2. Post information About upcoming sales, new products, Brewing news etc -- Keep my customers informed and drive up sales 
+    3. Add new Products -- Sell them
+    1. **Fulfilled** The site features a store where the site owner can Add their products to sell.
+    2. **Fulfilled** The site features a blog where the storowner can post the information they want to share.
+    3. **Fulfilled** The site features a store where the site owner can Add their products to sell.
+2. As a Experienced Homebrewer I want to …. So that I can ….
+    1. Buy Ingredients for my next beer -- Brew beer
+    2. Advance my knowledge -- brew better beer
+    3. Keep track of my previous purchases. -- Know what ingredients i used last time.
+    4. Buy New equipment. -- Test a new method, improve my setup.
+    5. Buy consumables. -- Keep my equipment clean and up to date
+    1. **Half Fulfilled** The site features a store where ingredients can be bought, but no shipping is implemented and the store currently only feature a small saple set of products. Tho fully achive this goal shipping wuld ne t be set up and the store fully populated.
+    2. **Not Fulfilled** There is currently no way to fullfill this goal. Adding some books for sale would help to fulfill this goal.
+    3. **Not Fulfilled** No orderhistory is avliable for custors. this would need to be implemented for this goal to be achived,
+    4. **Half Fulfilled** The site features a store where equipment can be bought, but no shipping is implemented and the store currently only feature a small saple set of products. Tho fully achive this goal shipping wuld ne t be set up and the store fully populated.
+    5. **Half Fulfilled** The site features a store where equipment can be bought, but no shipping is implemented and the store currently only feature a small saple set of products. Tho fully achive this goal shipping wuld ne t be set up and the store fully populated.
+3. As a beginner Homebrewer I  want to …. So that I can ….
+    1. Find relevant information easily. -- Get into the hobby
+    2. Find a beginner kit. -- Brew my first beer
+    1. **Not Fulfilled** But this goal could be fulfilled by the storowner writing a series of blogs on hown to brew beer amied at beginners.
+    2. **Not Fulfilled** No kits are currently avaliable on the site.
 
+
+### Automated testing
 This Project uses Automated testing in python. Test were created in each apps tests.py and tests the functionality of the app.
 Some views require a superuser to be logged in, the tests were ran with logged in required and if if request.user.is_superuser: commented out
 since the setUp for testing dosnt support creating a superuser.
