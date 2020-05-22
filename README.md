@@ -123,4 +123,19 @@ This project uses Gunicorn to run the server on Heroku.
 
 
 ## Testing 
-This Project uses 
+This Project uses Automated testing in python. Test were created in each apps tests.py and tests the functionality of the app.
+Some views require a superuser to be logged in, the tests were ran with logged in required and if if request.user.is_superuser: commented out
+since the setUp for testing dosnt support creating a superuser.
+
+Coverage vas used to generate a report on the coverage of the tests.
+The following coverage was achived
+* Products: 94%
+* Cart: 95%
+* Checkout: 29%
+* Blog: 64%
+* Orders: 68%
+
+Checkout and orders require interaction with Klarna Api and it is beyond the scope of this project to test automatically therefore the
+coverage of these apps is low. But this will instead be tested manually.
+
+#### Manual testing
