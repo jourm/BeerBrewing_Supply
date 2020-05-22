@@ -142,4 +142,29 @@ coverage of these apps is low. But this will instead be tested manually.
 **Test:** Visit site.  
 **Expected Outcome:** Landingpage displays.  
 **Outcome:** Landingpage displays.  
-**Passed:** Yes  
+**Passed:** Yes 
+
+**Test:** Add item to cart and visit cart.  
+**Expected Outcome:** Item is added to the cart, the total under the cart sign is uppdated and the item that was added is visible on the cart page.  
+**Outcome:** Item is added to the cart, the total under the cart sign is uppdated and the item that was added is visible on the cart page.  
+**Passed:** Yes 
+
+**Test:** Checkout using testing creditcard details from Klarna.  
+**Expected Outcome:** Checkout forms renders correctly, the amount to be paid remains the same, once checkout is completed an email is recived with a order confirmation.  
+**Outcome:** Landingpage displays.  
+**Passed:** Yes 
+
+**Test:** Visit site.  
+**Expected Outcome:** Landingpage displays.  
+**Outcome:** Landingpage displays.  
+**Passed:** Yes 
+
+**Test:** Visit site.  
+**Expected Outcome:** Landingpage displays.  
+**Outcome:** Landingpage displays.  
+**Passed:** Yes 
+
+**Test:** Visit site.  
+**Expected Outcome:** Landingpage displays.  
+**Outcome:** Landingpage displays.  
+**Passed:** Yes 
