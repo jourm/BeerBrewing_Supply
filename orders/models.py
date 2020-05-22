@@ -9,9 +9,6 @@ from django_countries.fields import CountryField
 class Order(models.Model):
     order_id = models.CharField(max_length=56, null=False, editable=False)
     status = models.CharField(max_length=56, null=False, default='created')
-    #user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
-    #                                 null=True, blank=True,
-    #                                 related_name='orders')
     given_name = models.CharField(max_length=50, null=False, blank=False)
     family_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
