@@ -14,9 +14,10 @@ klarna_un = settings.KLARNA_UN
 klarna_pw = settings.KLARNA_PW
 
 
-
-
 def checkout(request):
+    """ Sets up checkout by creating a request to call the klarna api,
+     calls the api and renders the respons to the page """
+
 
     auth = HTTPBasicAuth(klarna_un, klarna_pw)
     headers = {'content-type': 'application/json'}
