@@ -31,6 +31,7 @@
             <small>{{ blog.updated }}</small>
             {% if request.user.is_superuser %}
             <a class="btn btn-warning" href="{% url 'edit_blog' blog.id %}">Edit blog</a>
+            <a class="btn btn-danger" href="{% url 'edit_blog' blog.id %}">Edit blog</a>
             {% endif %}
         </div>
     </div>

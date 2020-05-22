@@ -8,6 +8,7 @@ from products import utils
 from orders.models import Order
 from django.http import HttpResponse
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 klarna_un = settings.KLARNA_UN
@@ -72,31 +73,34 @@ def register_order(request):
     return HttpResponse(status=200)
 
 
+@login_required
 def ready_to_ship(request):
-    orders = Order.objects.filter(status="AUTHORIZED")
-    context = {
-       'orders': orders,
-    }
+    if request.user.is_superuser:
+        orders = Order.objects.filter(status="AUTHORIZED")
+        context = {
+        'orders': orders,
+        }
 
-    return render(request, 'orders/ready_to_ship.html', context)
+        return render(request, 'orders/ready_to_ship.html', context)
 
-
+@login_required
 def capture(request, order_id):
-    auth = HTTPBasicAuth(klarna_un, klarna_pw)
-    headers = {'content-type': 'application/json'}
-    order = Order.objects.filter(order_id=order_id).first()
-    body = json.dumps({ 
-        "captured_amount": int(order.order_total),
-        "description": "string",
-        "reference": "string",
-    })
-    requests.post(
-                    settings.KLARNA_BASE_URL + '/ordermanagement/v1/orders' +
-                    order_id + '/captures',
-                    auth=auth,
-                    headers=headers,
-                    data=body,
-                )
-    order.status = 'captured'
-    order.save()
-    return redirect(reverse(ready_to_ship))
+    if request.user.is_superuser:
+        auth = HTTPBasicAuth(klarna_un, klarna_pw)
+        headers = {'content-type': 'application/json'}
+        order = Order.objects.filter(order_id=order_id).first()
+        body = json.dumps({ 
+            "captured_amount": int(order.order_total),
+            "description": "string",
+            "reference": "string",
+        })
+        requests.post(
+                        settings.KLARNA_BASE_URL + '/ordermanagement/v1/orders' +
+                        order_id + '/captures',
+                        auth=auth,
+                        headers=headers,
+                        data=body,
+                    )
+        order.status = 'captured'
+        order.save()
+        return redirect(reverse(ready_to_ship))
