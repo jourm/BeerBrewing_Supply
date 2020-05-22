@@ -6,12 +6,12 @@
     <div class="card my-4">
         <h5 class="card-header">About Us</h5>
         <div class="card-body">
-            <p class="card-text"> We are a small Beer Brewing supply shop in Gothenbutg with a team of dedicated Personel</p>
-            <a href=""
+            <p class="card-text"> We are a small Beer Brewing supply shop in Gothenbutg with a team of dedicated Personel.</p>
+            <a href="{% url 'products' %}"
             class="btn btn-danger">Check Out our products</a>
             <h4>Latest aditions:</h4>
             {% for product in products %}
-                 {% if product.image_url %}
+                 {% if product.image %}
                     <a href="{% url 'product_detail' product.id %}">
                         <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
                     </a>

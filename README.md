@@ -139,3 +139,7 @@ Checkout and orders require interaction with Klarna Api and it is beyond the sco
 coverage of these apps is low. But this will instead be tested manually.
 
 #### Manual testing
+**Test:** Visit site.  
+**Expected Outcome:** Landingpage displays.  
+**Outcome:** Landingpage displays.  
+**Passed:** Yes  
