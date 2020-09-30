@@ -22,9 +22,9 @@
     </div>
 </div>
     {% for blog in blogs %}
-     <div class="card border-primary mb-3 col-sm-12 col-md-8" >
+     <div class="card border-primary mb-3 my-4 col-sm-12 col-md-8" >
         {% if blog.image %}
-            <img class="card-img-top img-fluid" src="{{ blog.image.url }}">
+            <img class="card-img-top img-fluid my-3" src="{{ blog.image.url }}">
         {% endif %} 
         <div class="card-header"></div> 
         <div class="card-body">
