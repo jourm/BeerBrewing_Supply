@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewBlogPost
 from .models import Blog
 from django.urls import reverse
@@ -44,7 +44,7 @@ def blog_edit(request, blog_id=None):
         if request.method == 'POST':
             form = NewBlogPost(request.POST, request.files, instance=blog)
             if form.is_valid():
-                new_blog = form.save()
+                blog = form.save()
                 return redirect(reverse(view_blogs))
         else:
             form = NewBlogPost(instance=blog)
@@ -52,7 +52,7 @@ def blog_edit(request, blog_id=None):
                     'form': form,
                 }
         return render(request, 'blog/edit_blog.html', context)
-    
+
 
 
 
