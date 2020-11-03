@@ -42,8 +42,7 @@ def edit_blog(request, blog_id=None):
     if request.user.is_superuser:
         print(blog_id)
         if blog_id:
-
-            blog = blog.objects.get(pk=blog_id)
+            blog = Blog.objects.get(pk=blog_id)
         
         #blog = get_object_or_404(Blog, pk=blog_id) if blog_id else None
         if request.method == 'POST':
