@@ -19,7 +19,7 @@ def view_blogs(request):
     return render(request, 'blog/blog.html', context)
 
 
-@login_required
+""" @login_required
 def add_blog(request):
     if request.user.is_superuser:
         if request.method == 'GET':
@@ -34,26 +34,25 @@ def add_blog(request):
             if form.is_valid():
                 new_blog = form.save()
 
-    return redirect(reverse(view_blogs))
+    return redirect(reverse(view_blogs)) """
 
 @login_required
-def edit_blog(request, blog_id):
+def blog_edit(request, blog_id=None):
     if request.user.is_superuser:
-        if request.method == 'GET':
-            blog = Blog.objects.get(pk=blog_id)
+
+        blog = get_object_or_404(Blog, pk=blog_id) if blog_id else None
+        if request.method == 'POST':
+            form = NewBlogPost(request.POST, request.files, instance=blog)
+            if form.is_valid():
+                new_blog = form.save()
+                return redirect(reverse(view_blogs))
+        else:
             form = NewBlogPost(instance=blog)
             context = {
                     'form': form,
-                    'blog': blog
                 }
-            return render(request, 'blog/edit_blog.html', context)
-        elif request.method == 'POST':
-            instance = Blog.objects.get(pk=blog_id)
-            form = NewBlogPost(request.POST, instance=instance)
-            if form.is_valid():
-                new_blog = form.save()
-
-    return redirect(reverse(view_blogs))
+        return render(request, 'blog/edit_blog.html', context)
+    
 
 
 
