@@ -36,9 +36,15 @@ def add_blog(request):
 
     return redirect(reverse(view_blogs)) """
 
+
 @login_required
-def blog_edit(request, blog_id=None):
+def edit_blog(request, blog_id=None):
     if request.user.is_superuser:
+        print(blog_id)
+        if blog_id:
+
+            blog = blog.objects.get(pk=blog_id)
+        
         #blog = get_object_or_404(Blog, pk=blog_id) if blog_id else None
         if request.method == 'POST':
             form = NewBlogPost(request.POST, request.files, instance=blog)
