@@ -39,8 +39,7 @@ def add_blog(request):
 @login_required
 def blog_edit(request, blog_id=None):
     if request.user.is_superuser:
-
-        blog = get_object_or_404(Blog, pk=blog_id) if blog_id else None
+        #blog = get_object_or_404(Blog, pk=blog_id) if blog_id else None
         if request.method == 'POST':
             form = NewBlogPost(request.POST, request.files, instance=blog)
             if form.is_valid():
