@@ -42,8 +42,8 @@ def edit_blog(request, blog_id=None):
     if request.user.is_superuser:
         if blog_id:
             blog = Blog.objects.get(pk=blog_id)
-        
-        blog = get_object_or_404(Blog, pk=blog_id) if blog_id else None
+        else:
+            blog = None
         if request.method == 'POST':
             form = NewBlogPost(request.POST, request.FILES, instance=blog)
             if form.is_valid():
