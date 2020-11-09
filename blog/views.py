@@ -53,7 +53,7 @@ def edit_blog(request, blog_id=None):
         else:
             form = NewBlogPost(instance=blog)
             context = {
-                    'form': form,
+                    'form': form
                 }
         return render(request, 'blog/edit_blog.html', context)
 
