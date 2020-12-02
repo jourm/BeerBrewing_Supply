@@ -49,7 +49,7 @@ def edit_blog(request, blog_id=None):
             if form.is_valid():
                 blog = form.save()
                 return redirect(reverse(view_blogs))
-        else:
+        elif request.method == 'GET':
             form = NewBlogPost(instance=blog)
             context = {
                     'form': form
