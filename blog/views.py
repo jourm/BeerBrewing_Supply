@@ -45,7 +45,7 @@ def edit_blog(request, blog_id=None):
         else:
             blog = None
         if request.method == 'POST':
-            form = NewBlogPost(request.POST, request.FILES, instance=blog)
+            form = NewBlogPost(request.POST, instance=blog)
             if form.is_valid():
                 blog = form.save()
                 return redirect(reverse(view_blogs))
