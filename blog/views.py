@@ -48,13 +48,14 @@ def edit_blog(request, blog_id=None):
             form = NewBlogPost(request.POST, instance=blog)
             if form.is_valid():
                 blog = form.save()
-                return redirect(reverse(view_blogs))
+            return redirect(reverse(view_blogs))
         elif request.method == 'GET':
             form = NewBlogPost(instance=blog)
             context = {
                     'form': form
                 }
-        return render(request, 'blog/edit_blog.html', context)
+            return render(request, 'blog/edit_blog.html', context)
+        return redirect(reverse(view_blogs))
 
 
 
